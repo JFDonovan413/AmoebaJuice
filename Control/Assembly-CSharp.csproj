@@ -45,6 +45,8 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\CameraControls\CameraController.cs" />
+     <Compile Include="Assets\PlayerController\ClickToMove.cs" />
      <Compile Include="Assets\PlayerController\PlayerMovement.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>E:/Documents/Game/AmoebaJuice/Control/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
