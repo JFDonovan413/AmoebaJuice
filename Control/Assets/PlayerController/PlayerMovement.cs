@@ -4,29 +4,55 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // CharacterController characterController;
-    public float speed = 0.0f;
+    public float turnSpeed = 4f, moveSpeed = 80f, mouseTurnMultiplier = 1f;
+    private float rotation;
+    CharacterController controller;
+    private float x;
+    private float z;
 
-    // private Vector3 movement = Vector3.zero;
-
-    // Start is called before the first frame update
     void Start()
     {
-        // characterController = GetComponent<CharacterController>();
-
+        controller = GetComponent<CharacterController>();
     }
-
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        // Getting movement inputs
+        this.getKeys();
 
-        Vector3 v = new Vector3( horizontal, 0.0f, vertical) * speed * Time.deltaTime;
-        // transform.LookAt(v);
-        // transform.Translate(v);
+        //Setting rotation based on input to rotation
+        Vector3 charRotation = transform.eulerAngles + new Vector3(0, rotation * turnSpeed, 0);
+        transform.eulerAngles = charRotation;
 
-        transform.position = transform.position + v;
-        transform.LookAt(transform.position + v);
+        // Setting xy movement based on xy inputs and movement speed
+        Vector3 velocity = (transform.forward * z + transform.right * x) * Time.deltaTime * moveSpeed;
+        controller.Move(velocity);
+    }
+
+    void getKeys()
+    {
+
+        x = Input.GetAxis("Horizontal");
+        z = Input.GetAxis("Vertical");
+
+        // Using Q and E keys to rotate
+        if (Input.GetKey(KeyCode.Q))
+        {
+            rotation = -1;
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            if (Input.GetKey(KeyCode.Q))
+            {
+                rotation = 0;
+            }
+            else
+            {
+                rotation = 1;
+            }
+        }
+        if(!Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.E)){
+            rotation = 0;
+        }
     }
 }
