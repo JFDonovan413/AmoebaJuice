@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour
     CharacterController controller;
     private float x;
     private float z;
-
+    public CameraController mainCam;
+    public bool steer;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -35,24 +36,46 @@ public class PlayerMovement : MonoBehaviour
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
 
-        // Using Q and E keys to rotate
-        if (Input.GetKey(KeyCode.Q))
+        if (steer)
         {
-            rotation = -1;
+            x += getAxis(Input.GetKey(KeyCode.E),Input.GetKey(KeyCode.Q));
+            Mathf.Clamp(x, -1, 1);
         }
-        if (Input.GetKey(KeyCode.E))
-        {
-            if (Input.GetKey(KeyCode.Q))
-            {
-                rotation = 0;
-            }
-            else
-            {
-                rotation = 1;
-            }
+        if (steer)
+            rotation = -Input.GetAxis("Mouse X") * mainCam.camSpeed;
+        else
+        { 
+            rotation = getAxis(Input.GetKey(KeyCode.E),Input.GetKey(KeyCode.Q));
+            // // Using Q and E keys to rotate
+            // if (Input.GetKey(KeyCode.Q))
+            // {
+            //     rotation = -1;
+            // }
+            // if (Input.GetKey(KeyCode.E))
+            // {
+            //     if (Input.GetKey(KeyCode.Q))
+            //     {
+            //         rotation = 0;
+            //     }
+            //     else
+            //     {
+            //         rotation = 1;
+            //     }
+            // }
+            // if (!Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.E))
+            // {
+            //     rotation = 0;
+            // }
         }
-        if(!Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.E)){
-            rotation = 0;
-        }
+    }
+
+    float getAxis(bool positive, bool negative) {
+        float axis = 0;
+
+        if(positive)
+            axis += 1;
+        if(negative)
+            axis -= 1;
+        return axis;
     }
 }
