@@ -46,7 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\CameraControls\CameraController.cs" />
-     <Compile Include="Assets\PlayerController\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Wander.cs" />
      <Compile Include="Assets\Scripts\camera.cs" />
      <Compile Include="Assets\Scripts\colliders.cs" />
