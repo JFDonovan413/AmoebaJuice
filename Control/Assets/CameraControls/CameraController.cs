@@ -94,7 +94,9 @@ public class CameraController : MonoBehaviour
             case CamState.camFree:
             case CamState.camSteer:
 
-                currPan = Mathf.Lerp(currPan, player.transform.eulerAngles.y, .2f);
+                // currPan = currPan - player.transform.eulerAngles.y * camSpeed * Time.deltaTime;
+                currPan = Mathf.Lerp(currPan, Mathf.Abs(player.transform.eulerAngles.y), .2f);
+                Debug.Log(currPan);
                 break;
         }
 

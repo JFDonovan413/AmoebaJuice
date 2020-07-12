@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float turnSpeed = 4f, moveSpeed = 80f, mouseTurnMultiplier = 1f;
+    public float turnSpeed = 4f, moveSpeed = 30f;
     private float rotation;
     CharacterController controller;
     private float x;
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
         this.getKeys();
 
         //Setting rotation based on input to rotation
-        Vector3 charRotation = transform.eulerAngles + new Vector3(0, rotation * turnSpeed, 0);
+        Vector3 charRotation = transform.eulerAngles + new Vector3(0, rotation, 0);
         transform.eulerAngles = charRotation;
 
         // Setting xy movement based on xy inputs and movement speed
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     void getKeys()
     {
 
-        x = Input.GetAxis("Horizontal");
+        x = getAxis(Input.GetKey(KeyCode.E),Input.GetKey(KeyCode.Q));;
         z = Input.GetAxis("Vertical");
 
         if (steer)
@@ -41,11 +41,16 @@ public class PlayerMovement : MonoBehaviour
             x += getAxis(Input.GetKey(KeyCode.E),Input.GetKey(KeyCode.Q));
             Mathf.Clamp(x, -1, 1);
         }
+
+
         if (steer)
-            rotation = -Input.GetAxis("Mouse X") * mainCam.camSpeed;
+            rotation = Input.GetAxis("Mouse X") * turnSpeed * Time.deltaTime;
         else
         { 
-            rotation = getAxis(Input.GetKey(KeyCode.E),Input.GetKey(KeyCode.Q));
+            rotation = Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime;
+            
+            // getAxis(Input.GetKey(KeyCode.E),Input.GetKey(KeyCode.Q));
+            
             // // Using Q and E keys to rotate
             // if (Input.GetKey(KeyCode.Q))
             // {

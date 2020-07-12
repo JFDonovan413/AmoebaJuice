@@ -47,7 +47,9 @@
   <ItemGroup>
      <Compile Include="Assets\CameraControls\CameraController.cs" />
      <Compile Include="Assets\PlayerController\PlayerMovement.cs" />
-     <Compile Include="Assets\colliders.cs" />
+     <Compile Include="Assets\Scripts\Wander.cs" />
+     <Compile Include="Assets\Scripts\camera.cs" />
+     <Compile Include="Assets\Scripts\colliders.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>E:/Documents/Game/AmoebaJuice/Control/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
