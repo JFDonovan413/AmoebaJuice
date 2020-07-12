@@ -26,10 +26,9 @@ public class camera : MonoBehaviour
 
     void Start()
     {
-        lastPlayerPos = player.transform.position;
         camPosX = player.position.x;
         camPosY = player.position.y + 12;
-        camPosZ = player.position.z - 12;
+        camPosZ = player.position.z - 20;
 
         offset = new Vector3(player.position.x + camPosX, player.position.y + camPosY, player.position.z + camPosZ);
 
@@ -67,7 +66,6 @@ public class camera : MonoBehaviour
 
         if (playermoved)
         {
-            Debug.Log(offset);
             camPos = player.position + offset;
             if (camPos.y < 2)
                 camPos.y = 2;
@@ -92,12 +90,7 @@ public class camera : MonoBehaviour
             if (camPos.y < 2)
                 camPos.y = 2;
             transform.position = camPos;
-            Debug.Log(player.transform.eulerAngles);
-            // player.LookAt(new Vector3(player.forward.x, -camPos.y, player.forward.z).normalized);
             player.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-            Debug.Log(player.transform.eulerAngles);
-
-            // player.transform.eulerAngles = Vector3.SmoothDamp(player.transform.eulerAngles, new Vector3(0, transform.eulerAngles.y, 0), ref cameraVelocity, .2f);
         }
 
         transform.LookAt(player.position);

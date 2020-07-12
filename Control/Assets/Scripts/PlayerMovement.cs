@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float turnSpeed = 4f, moveSpeed = 30f, mouseTurnSpeed = 40f;
+    public float turnSpeed = 150f, moveSpeed = 15, mouseTurnSpeed = 5f;
     private float rotation;
     CharacterController controller;
     private float x;
@@ -53,32 +53,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (Input.GetAxis("Horizontal") > 0)
+        if (Input.GetAxis("Horizontal") != 0)
         {
             rotation = Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime;
-
-            // getAxis(Input.GetKey(KeyCode.E),Input.GetKey(KeyCode.Q));
-
-            // // Using Q and E keys to rotate
-            // if (Input.GetKey(KeyCode.Q))
-            // {
-            //     rotation = -1;
-            // }
-            // if (Input.GetKey(KeyCode.E))
-            // {
-            //     if (Input.GetKey(KeyCode.Q))
-            //     {
-            //         rotation = 0;
-            //     }
-            //     else
-            //     {
-            //         rotation = 1;
-            //     }
-            // }
-            // if (!Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.E))
-            // {
-            //     rotation = 0;
-            // }
         }
     }
 

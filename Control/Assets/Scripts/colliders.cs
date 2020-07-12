@@ -4,64 +4,49 @@ using UnityEngine;
 
 public class colliders : MonoBehaviour
 {
-    CharacterController controller;
-    BoxCollider thisBox;
+
     public GameObject toMake;
-    private float timeLastHit = 0;
-    // Start is called before the first frame update
+    private float juiceSpawnTime = 0;
+
     void Start()
     {
-        // Finding the current box
-        BoxCollider[] boxes = FindObjectsOfType<BoxCollider>();
-        foreach (BoxCollider box in FindObjectsOfType<BoxCollider>())
-        {
-            if (box.gameObject.name == this.gameObject.name)
-            {
-                thisBox = box;
-            }
-        }
-
-        controller = GetComponent<CharacterController>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
     }
 
-    private string hitobject;
+    private GameObject hitobject;
 
     void OnTriggerEnter(Collider hit)
     {
-        hitobject = hit.gameObject.name;
-        if (hitobject == "Cylinder")
+        hitobject = hit.gameObject;
+
+        if (hitobject.name == "Cylinder")
         {
-            // transform.position = transform.position - transform.forward * 120;
 
-            // transform.Translate(-transform.forward.x, transform.forward.y, 100 * Time.deltaTime);
-            controller.Move(transform.position-hit.gameObject.transform.position * 3);
-            spawnObj();
+            float shrinkPercent = Random.Range(0.2f, 0.3f);
+
+            transform.localScale -= transform.localScale * shrinkPercent;
+
+            spawnObj(transform.localScale * (shrinkPercent + .2f));
+
         }
-        // GameObject newBox = Instantiate(toMake);
-        // transform.Move(-transform.forward * 30 * Time.deltaTime);
-
+        else if (hitobject.name == "Sphere")
+        {
+            if (Time.time - juiceSpawnTime > 4)
+            {
+                transform.localScale += hitobject.transform.localScale;
+                GameObject.Destroy(hitobject);
+            }
+        }
     }
-
-    void spawnObj()
+    void spawnObj(Vector3 newObjectAmount)
     {
-        Debug.Log(Time.time - timeLastHit);
+        juiceSpawnTime = Time.time;
 
-        if (Time.time - timeLastHit > .5)
-        {
-            Debug.Log("Been at least .5 seconds");
-            GameObject newBox = Instantiate(toMake, new Vector3(transform.position.x +Random.Range(-1,1), transform.position.y, transform.position.z +Random.Range(-1,1)), transform.rotation);
-            // newBox.transform.position = transform.position ;
-            thisBox.enabled = true;
-        }
-        timeLastHit = Time.time;
-        Debug.Log(timeLastHit);
+        GameObject newBox = Instantiate(toMake, new Vector3(transform.position.x + Random.Range(-1, 1), 0, transform.position.z + Random.Range(-1, 1)), transform.rotation);
+        newBox.transform.localScale = newObjectAmount;
     }
 }
